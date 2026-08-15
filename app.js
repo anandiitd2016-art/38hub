@@ -50,6 +50,28 @@ const statObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.count').forEach(el => statObserver.observe(el));
 
+// ---------- Reliable in-page anchor scrolling ----------
+// Browsers only auto-scroll when the URL hash actually changes, so clicking
+// a link to the same hash you're already on (e.g. #login twice) silently
+// does nothing. Handling this ourselves fixes that, and also covers links
+// added later by auth.js (like the dynamic Login/Logout button), since this
+// listens on the whole page rather than on specific elements.
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
+
+  const id = link.getAttribute('href').slice(1);
+  const target = document.getElementById(id);
+  if (!target) return;
+
+  e.preventDefault();
+  target.scrollIntoView({
+    behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    block: 'start'
+  });
+  history.pushState(null, '', `#${id}`);
+});
+
 // ---------- Subtle ticket tilt on pointer move (desktop, motion allowed) ----------
 const ticket = document.getElementById('ticket');
 if (ticket && window.matchMedia('(hover: hover)').matches && !prefersReducedMotion) {
