@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC38 Pass — LIC Agency Exam Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-1:#EAF2FF; --bg-2:#F5F1FF; --bg-3:#FFF6E9;
+    --navy:#0F1E44; --navy-soft:#4A5580;
+    --ink:#16213D; --ink-soft:#5B6489;
+    --gold:#F2A93B; --gold-deep:#C9862B;
+    --mint:#12B8A6; --mint-deep:#0B8F82;
+    --coral:#FB6F92;
+    --surface:rgba(255,255,255,0.7);
+    --surface-strong:#ffffff;
+    --line:rgba(15,30,68,0.10);
+    --shadow:0 20px 45px -20px rgba(16,30,70,0.35);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(1100px 600px at 8% -10%, var(--bg-3), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, var(--bg-2), transparent 55%),
+      linear-gradient(180deg, var(--bg-1), #FDFEFF 40%);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  h1,h2,h3,.font-display{ font-family:'Sora',sans-serif; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  /* ---------- floating decor blobs ---------- */
+  .blob{position:fixed; border-radius:50%; filter:blur(70px); opacity:0.35; z-index:0; pointer-events:none;}
+  .blob-1{width:420px; height:420px; background:var(--mint); top:-120px; right:-120px; animation:float1 16s ease-in-out infinite;}
+  .blob-2{width:340px; height:340px; background:var(--gold); bottom:10%; left:-140px; animation:float2 18s ease-in-out infinite;}
+  .blob-3{width:280px; height:280px; background:var(--coral); top:45%; right:8%; opacity:0.18; animation:float1 22s ease-in-out infinite reverse;}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,40px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+
+  .wrap{max-width:1240px; margin:0 auto; padding:0 28px; position:relative; z-index:1;}
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,0.65);
+    backdrop-filter:blur(18px) saturate(160%);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 28px; max-width:1240px; margin:0 auto;}
+  .logo{display:flex; align-items:center; gap:10px; font-weight:800; font-size:20px; color:var(--navy);}
+  .logo-badge{
+    width:38px; height:38px; border-radius:11px;
+    background:linear-gradient(135deg,var(--mint),var(--navy));
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-family:'Sora'; font-weight:800; font-size:14px;
+    box-shadow:0 8px 18px -6px rgba(18,184,166,0.6);
+  }
+  nav{display:flex; align-items:center; gap:6px;}
+  nav a{
+    font-size:14.5px; font-weight:600; color:var(--navy-soft);
+    text-decoration:none; padding:9px 14px; border-radius:100px;
+    transition:.2s;
+  }
+  nav a:hover{ background:rgba(15,30,68,0.06); color:var(--navy);}
+  .header-actions{display:flex; align-items:center; gap:12px;}
+  .streak-pill{
+    display:flex; align-items:center; gap:6px;
+    background:linear-gradient(135deg,#fff8ec,#fff);
+    border:1px solid #f3d9a6; color:var(--gold-deep);
+    font-weight:700; font-size:13px; padding:7px 12px 7px 10px;
+    border-radius:100px; box-shadow:0 4px 12px -6px rgba(201,134,43,0.4);
+  }
+  .btn{
+    border:none; cursor:pointer; font-family:'Inter'; font-weight:700;
+    border-radius:100px; transition:transform .15s ease, box-shadow .2s ease;
+    position:relative; overflow:hidden;
+  }
+  .btn:active{ transform:scale(0.97); }
+  .btn-primary{
+    background:linear-gradient(135deg, var(--mint), var(--mint-deep));
+    color:#fff; padding:11px 22px; font-size:14.5px;
+    box-shadow:0 10px 24px -8px rgba(11,143,130,0.55);
+  }
+  .btn-primary:hover{ box-shadow:0 14px 28px -8px rgba(11,143,130,0.7); }
+  .btn-ghost{
+    background:transparent; border:1.5px solid var(--line); color:var(--navy);
+    padding:10px 18px; font-size:14px;
+  }
+  .btn-ghost:hover{ border-color:var(--navy); }
+  .btn-shine::after{
+    content:''; position:absolute; top:0; left:-75%; width:50%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform:skewX(-20deg);
+  }
+  .btn-shine:hover::after{ animation:shine .9s ease forwards; }
+  @keyframes shine{ to{ left:130%; } }
+
+  .menu-toggle{display:none; background:none; border:none; font-size:22px; color:var(--navy); cursor:pointer;}
+
+  /* ---------- hero ---------- */
+  .hero{ padding:70px 0 40px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:50px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono'; font-size:12.5px; font-weight:700; letter-spacing:.08em;
+    color:var(--mint-deep); background:rgba(18,184,166,0.1); border:1px solid rgba(18,184,166,0.25);
+    padding:6px 13px; border-radius:100px; margin-bottom:20px;
+  }
+  .eyebrow .dot{width:6px; height:6px; border-radius:50%; background:var(--mint); box-shadow:0 0 0 3px rgba(18,184,166,0.25);}
+  .hero h1{
+    font-size:clamp(34px, 4.4vw, 54px); line-height:1.08; color:var(--navy); font-weight:800;
+    letter-spacing:-0.02em;
+  }
+  .hero h1 .accent{
+    background:linear-gradient(100deg,var(--mint-deep),var(--gold-deep));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero p.lead{ margin-top:18px; font-size:17px; line-height:1.65; color:var(--ink-soft); max-width:520px;}
+  .hero-cta{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;}
+
+  .stat-row{ display:flex; gap:14px; margin-top:44px; flex-wrap:wrap;}
+  .stat-card{
+    background:var(--surface); backdrop-filter:blur(10px);
+    border:1px solid var(--line); border-radius:16px; padding:16px 20px;
+    min-width:130px; box-shadow:var(--shadow);
+  }
+  .stat-card .num{ font-family:'Sora'; font-size:26px; font-weight:800; color:var(--navy);}
+  .stat-card .label{ font-size:12.5px; color:var(--ink-soft); font-weight:600; margin-top:2px;}
+
+  /* ---------- admit card visual ---------- */
+  .pass-wrap{ position:relative; display:flex; justify-content:center; }
+  .admit-card{
+    width:100%; max-width:400px; border-radius:22px; position:relative;
+    background:linear-gradient(160deg,#132250,#0B1636 65%);
+    box-shadow:0 30px 60px -20px rgba(11,22,54,0.55), 0 0 0 1px rgba(255,255,255,0.06) inset;
+    padding:26px 26px 22px; color:#fff; overflow:hidden;
+    transform:rotate(3deg);
+    animation:cardFloat 6s ease-in-out infinite;
+  }
+  @keyframes cardFloat{ 0%,100%{transform:rotate(3deg) translateY(0)} 50%{transform:rotate(2deg) translateY(-10px)} }
+  .admit-card::before{
+    content:''; position:absolute; inset:0; border-radius:22px;
+    background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.14) 45%, transparent 60%);
+    animation:sheen 5s ease-in-out infinite;
+  }
+  @keyframes sheen{ 0%{transform:translateX(-120%)} 60%,100%{transform:translateX(120%)} }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; position:relative; z-index:2;}
+  .card-top .tag{ font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.1em; color:#9FD8CE;}
+  .card-top .badge-title{ font-family:'Sora'; font-weight:800; font-size:18px; margin-top:4px;}
+  .card-chip{ width:38px; height:28px; border-radius:6px; background:linear-gradient(135deg,#F5C765,#C9862B); box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15);}
+  .card-mid{ display:flex; gap:16px; margin-top:26px; position:relative; z-index:2;}
+  .avatar-ring{
+    width:64px; height:64px; border-radius:14px; flex-shrink:0;
+    background:linear-gradient(135deg,#2A3E7C,#101B3E);
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid rgba(255,255,255,0.15); font-size:26px;
+  }
+  .card-lines{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:8px;}
+  .card-line{ height:8px; border-radius:5px; background:rgba(255,255,255,0.18);}
+  .card-line.w60{width:60%;} .card-line.w40{width:40%;} .card-line.w80{width:80%;}
+  .card-bottom{ display:flex; justify-content:space-between; align-items:flex-end; margin-top:26px; position:relative; z-index:2;}
+  .pnr{ font-family:'JetBrains Mono'; font-size:13px; letter-spacing:.06em; color:#9FD8CE;}
+  .pnr small{ display:block; font-size:9.5px; color:#7C8AC2; letter-spacing:.12em; margin-bottom:2px;}
+  .status-pill{
+    font-family:'JetBrains Mono'; font-size:10.5px; font-weight:700; letter-spacing:.06em;
+    background:rgba(18,184,166,0.18); color:#5CE0CC; border:1px solid rgba(92,224,204,0.4);
+    padding:5px 10px; border-radius:100px;
+  }
+  .perf{ position:absolute; left:0; right:0; top:96px; height:0; border-top:2px dashed rgba(255,255,255,0.18); z-index:2;}
+  .perf::before,.perf::after{
+    content:''; position:absolute; top:-10px; width:20px; height:20px; border-radius:50%;
+    background:var(--bg-1);
+  }
+  .perf::before{ left:-10px; } .perf::after{ right:-10px; }
+  .float-badge{
+    position:absolute; background:#fff; border-radius:14px; padding:10px 14px;
+    box-shadow:var(--shadow); display:flex; align-items:center; gap:9px; z-index:3;
+    font-size:12.5px; font-weight:700; color:var(--navy);
+  }
+  .float-badge .ico{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+  .fb-1{ top:-16px; right:-6px; animation:bob 4s ease-in-out infinite; }
+  .fb-2{ bottom:14px; left:-30px; animation:bob 4.5s ease-in-out infinite 0.4s; }
+  .fb-1 .ico{background:rgba(18,184,166,0.15); color:var(--mint-deep);}
+  .fb-2 .ico{background:rgba(242,169,59,0.18); color:var(--gold-deep);}
+  @keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+  /* ---------- filter bar ---------- */
+  .filter-section{ padding:50px 0 10px; }
+  .filter-box{
+    background:var(--surface-strong); border:1px solid var(--line); border-radius:20px;
+    padding:20px 22px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:16px;
+  }
+  .search-row{ display:flex; align-items:center; gap:12px; background:#F4F6FC; border-radius:100px; padding:12px 18px; border:1px solid var(--line); }
+  .search-row svg{ flex-shrink:0; }
+  .search-row input{
+    border:none; outline:none; background:transparent; font-size:15px; font-family:'Inter'; width:100%; color:var(--ink); font-weight:500;
+  }
+  .search-row input::placeholder{ color:#9AA3C0; }
+  .chip-row{ display:flex; gap:9px; flex-wrap:wrap; }
+  .chip{
+    font-family:'JetBrains Mono'; font-size:12px; font-weight:700; letter-spacing:.03em;
+    padding:7px 13px; border-radius:100px; border:1.5px solid var(--line); background:#fff;
+    cursor:pointer; color:var(--ink-soft); transition:.15s;
+  }
+  .chip:hover{ border-color:var(--mint); color:var(--mint-deep); }
+  .chip.active{ background:var(--navy); border-color:var(--navy); color:#fff; }
+
+  /* ---------- grid ---------- */
+  .grid-section{ padding:56px 0 20px; }
+  .section-head{ display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:30px; flex-wrap:wrap; gap:14px;}
+  .section-head h2{ font-size:29px; color:var(--navy); font-weight:800; }
+  .section-head p{ color:var(--ink-soft); font-size:14.5px; margin-top:5px; }
+  .result-count{ font-family:'JetBrains Mono'; font-size:12.5px; color:var(--ink-soft); background:#F4F6FC; padding:7px 13px; border-radius:100px; border:1px solid var(--line);}
+
+  .ticket-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+  .ticket{
+    background:var(--surface-strong); border-radius:20px; overflow:hidden;
+    box-shadow:0 14px 34px -18px rgba(16,30,70,0.28); border:1px solid var(--line);
+    display:flex; transition:transform .25s ease, box-shadow .25s ease; position:relative;
+  }
+  .ticket:hover{ transform:translateY(-6px); box-shadow:0 26px 48px -18px rgba(16,30,70,0.4); }
+  .ticket.hidden{ display:none; }
+
+  .ticket-stub{
+    width:88px; flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:#fff; position:relative; padding:14px 6px;
+    background-size:cover;
+  }
+  .ticket-stub::before{
+    content:''; position:absolute; inset:0;
+    background-image:repeating-linear-gradient(180deg, rgba(255,255,255,0.35) 0 2px, transparent 2px 6px);
+    opacity:0.5; mix-blend-mode:overlay;
+  }
+  .stub-code{ font-family:'JetBrains Mono'; font-weight:700; font-size:20px; letter-spacing:.03em; position:relative; z-index:2; writing-mode:vertical-rl; text-orientation:mixed; transform:rotate(180deg);}
+  .stub-native{ font-family:'Sora'; font-weight:700; font-size:12px; margin-top:10px; opacity:0.9; position:relative; z-index:2; text-align:center; line-height:1.3;}
+
+  .ticket-body{ flex:1; padding:18px 20px 18px 22px; display:flex; flex-direction:column; position:relative;}
+  .ticket-body::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:0;
+    border-left:2px dashed var(--line);
+  }
+  .ticket-title{ font-family:'Sora'; font-weight:700; font-size:16.5px; color:var(--navy); }
+  .ticket-sub{ font-family:'JetBrains Mono'; font-size:10.5px; color:var(--ink-soft); margin-top:2px; letter-spacing:.05em;}
+  .ticket-stats{ display:flex; flex-direction:column; gap:7px; margin:14px 0 16px;}
+  .tstat{ display:flex; align-items:center; justify-content:space-between; font-size:13px; color:var(--ink-soft); font-weight:600;}
+  .tstat .left{ display:flex; align-items:center; gap:8px;}
+  .tstat .dot-ico{ width:20px; height:20px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:11px; background:#F4F6FC; }
+  .tstat .val{ font-family:'JetBrains Mono'; font-weight:700; color:var(--navy); }
+  .ticket-cta{
+    margin-top:auto; width:100%; padding:10px 0; border-radius:100px; border:none; cursor:pointer;
+    background:var(--navy); color:#fff; font-weight:700; font-size:13.5px; font-family:'Inter';
+    display:flex; align-items:center; justify-content:center; gap:7px; transition:.2s; position:relative; overflow:hidden;
+  }
+  .ticket-cta:hover{ background:var(--mint-deep); }
+  .attempt-badge{
+    position:absolute; top:12px; right:14px; font-family:'JetBrains Mono'; font-size:10px; font-weight:700;
+    background:rgba(18,184,166,0.12); color:var(--mint-deep); padding:3px 8px; border-radius:100px; opacity:0; transform:scale(0.6);
+    transition:.25s;
+  }
+  .attempt-badge.show{ opacity:1; transform:scale(1); }
+
+  /* ---------- quiz widget ---------- */
+  .quiz-section{ padding:70px 0; }
+  .quiz-card{
+    background:linear-gradient(155deg,#0F1E44,#182C63 60%,#0F1E44);
+    border-radius:26px; padding:38px; color:#fff; position:relative; overflow:hidden;
+    box-shadow:0 30px 60px -24px rgba(16,30,70,0.55);
+  }
+  .quiz-card::after{
+    content:''; position:absolute; width:340px; height:340px; border-radius:50%;
+    background:radial-gradient(circle, rgba(18,184,166,0.35), transparent 70%);
+    top:-140px; right:-100px;
+  }
+  .quiz-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:40px; position:relative; z-index:2; align-items:flex-start;}
+  .quiz-left .eyebrow{ background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:#8FE3D6;}
+  .quiz-left h2{ font-size:27px; margin-top:14px; }
+  .quiz-left p{ color:#B7C0E6; font-size:14.5px; margin-top:12px; line-height:1.6; max-width:340px;}
+  .quiz-progress{ display:flex; gap:6px; margin-top:26px; }
+  .quiz-progress span{ width:26px; height:5px; border-radius:4px; background:rgba(255,255,255,0.18); }
+  .quiz-progress span.active{ background:var(--mint); }
+
+  .quiz-box{ background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); border-radius:18px; padding:24px; backdrop-filter:blur(6px);}
+  .q-tag{ font-family:'JetBrains Mono'; font-size:11px; color:#8FE3D6; letter-spacing:.08em; }
+  .q-text{ font-family:'Sora'; font-weight:700; font-size:18px; margin-top:10px; line-height:1.4;}
+  .q-options{ display:flex; flex-direction:column; gap:10px; margin-top:18px;}
+  .q-opt{
+    text-align:left; background:rgba(255,255,255,0.06); border:1.5px solid rgba(255,255,255,0.15);
+    color:#fff; padding:12px 16px; border-radius:12px; font-size:14px; font-weight:600; cursor:pointer;
+    transition:.15s; font-family:'Inter'; display:flex; align-items:center; gap:10px;
+  }
+  .q-opt:hover{ border-color:#8FE3D6; background:rgba(143,227,214,0.08); }
+  .q-opt .letter{ width:22px; height:22px; border-radius:7px; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; font-size:11px; flex-shrink:0;}
+  .q-opt.correct{ border-color:#5CE0CC; background:rgba(92,224,204,0.18); }
+  .q-opt.wrong{ border-color:#FB6F92; background:rgba(251,111,146,0.16); }
+  .q-opt[disabled]{ cursor:default; }
+  .q-explain{
+    margin-top:16px; font-size:13.5px; color:#CBD3F0; background:rgba(0,0,0,0.18); border-radius:12px; padding:13px 16px;
+    display:none; line-height:1.55; border-left:3px solid var(--mint);
+  }
+  .q-explain.show{ display:block; }
+  .q-next{
+    margin-top:16px; background:var(--mint); color:#08221E; border:none; padding:10px 18px; border-radius:100px;
+    font-weight:700; font-size:13.5px; cursor:pointer; display:none; align-items:center; gap:6px;
+  }
+  .q-next.show{ display:inline-flex; }
+
+  /* ---------- cta banner ---------- */
+  .cta-banner{ padding:30px 0 80px; }
+  .banner-inner{
+    background:linear-gradient(120deg, var(--mint) 0%, #0B8F82 55%, var(--navy) 130%);
+    border-radius:26px; padding:50px 46px; display:flex; align-items:center; justify-content:space-between;
+    gap:30px; flex-wrap:wrap; position:relative; overflow:hidden; color:#fff;
+    box-shadow:0 30px 60px -24px rgba(11,143,130,0.5);
+  }
+  .banner-inner::before{
+    content:''; position:absolute; inset:0;
+    background-image:radial-gradient(rgba(255,255,255,0.35) 1.5px, transparent 1.5px);
+    background-size:18px 18px; opacity:0.15;
+  }
+  .banner-inner h3{ font-size:26px; max-width:420px; position:relative; z-index:2;}
+  .banner-inner p{ font-size:14px; color:rgba(255,255,255,0.85); margin-top:8px; position:relative; z-index:2;}
+  .banner-inner .btn-primary{ background:#fff; color:var(--mint-deep); box-shadow:none; position:relative; z-index:2;}
+  .banner-inner .btn-primary:hover{ box-shadow:0 12px 26px -10px rgba(0,0,0,0.35);}
+
+  footer{ padding:32px 0 50px; text-align:center; color:var(--ink-soft); font-size:13px; position:relative; z-index:1;}
+  footer b{ color:var(--navy); }
+
+  /* ---------- toast ---------- */
+  .toast-container{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:200; display:flex; flex-direction:column; gap:10px; align-items:center;}
+  .toast{
+    background:var(--navy); color:#fff; padding:12px 20px; border-radius:100px; font-size:13.5px; font-weight:600;
+    box-shadow:0 14px 30px -10px rgba(16,30,70,0.5); display:flex; align-items:center; gap:9px;
+    animation:toastIn .35s ease, toastOut .35s ease 2.2s forwards;
+  }
+  @keyframes toastIn{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes toastOut{ to{opacity:0; transform:translateY(-8px);} }
+
+  @media (max-width: 980px){
+    .hero{ grid-template-columns:1fr; padding-top:40px;}
+    .pass-wrap{ order:-1; }
+    .quiz-grid{ grid-template-columns:1fr; }
+    .ticket-grid{ grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width: 720px){
+    nav{ display:none; }
+    .menu-toggle{ display:block; }
+    .ticket-grid{ grid-template-columns:1fr; }
+    .banner-inner{ flex-direction:column; text-align:center; }
+    .banner-inner p, .banner-inner h3{ max-width:100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  :focus-visible{ outline:2.5px solid var(--mint-deep); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo"><div class="logo-badge">38</div> IC38<span style="color:var(--mint-deep)">Pass</span></div>
+    <nav>
+      <a href="#top">Home</a>
+      <a href="#grid" id="navPractice">Practice Paper</a>
+      <a href="#" data-toast="Opening the IC38 App page…">IC38 App</a>
+      <a href="#" data-toast="Buy Papers — coming soon!">Buy Papers</a>
+      <a href="#" data-toast="Contact form — coming soon!">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="streak-pill" id="streakPill"><span>🔥</span><span id="streakVal">0</span> day streak</div>
+      <button class="btn btn-ghost" data-toast="Login / Signup — coming soon!">Login</button>
+      <button class="btn btn-primary btn-shine" data-toast="Registration opening soon!">Get Started</button>
+      <button class="menu-toggle" data-toast="Menu — coming soon!">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="dot"></span> LIC AGENCY EXAM · ALL LANGUAGES</div>
+        <h1>Clear IC38 with confidence, <span class="accent">not guesswork.</span></h1>
+        <p class="lead">A sharper way to prep for your LIC agency exam — mock tests, chapter-wise drills and bite-sized notes, in the language you think in.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary btn-shine" data-toast="Starting your free mock test…">▶ Start Free Test</button>
+          <button class="btn btn-ghost" id="exploreBtn">Explore Languages ↓</button>
+        </div>
+        <div class="stat-row">
+          <div class="stat-card"><div class="num" data-count="271">0</div><div class="label">Mock Tests</div></div>
+          <div class="stat-card"><div class="num" data-count="12">0</div><div class="label">Languages</div></div>
+          <div class="stat-card"><div class="num" data-count="205">0</div><div class="label">Chapter Tests</div></div>
+          <div class="stat-card"><div class="num" data-count="97" data-suffix="%">0</div><div class="label">Pass Rate*</div></div>
+        </div>
+      </div>
+
+      <div class="pass-wrap">
+        <div class="admit-card">
+          <div class="card-top">
+            <div><div class="tag">CANDIDATE PASS</div><div class="badge-title">IC38 Exam</div></div>
+            <div class="card-chip"></div>
+          </div>
+          <div class="perf"></div>
+          <div class="card-mid" style="margin-top:34px;">
+            <div class="avatar-ring">🎓</div>
+            <div class="card-lines">
+              <div class="card-line w80"></div>
+              <div class="card-line w60"></div>
+              <div class="card-line w40"></div>
+            </div>
+          </div>
+          <div class="card-bottom">
+            <div class="pnr"><small>ACCESS CODE</small>IC38-4471-XR</div>
+            <div class="status-pill">● ELIGIBLE</div>
+          </div>
+        </div>
+        <div class="float-badge fb-1"><div class="ico">✓</div> 24 eNotes unlocked</div>
+        <div class="float-badge fb-2"><div class="ico">★</div> New syllabus ready</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="wrap filter-section">
+    <div class="filter-box">
+      <div class="search-row">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9AA3C0" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search a language — Hindi, Tamil, Telugu…">
+      </div>
+      <div class="chip-row" id="chipRow"></div>
+    </div>
+  </div>
+
+  <div class="wrap grid-section" id="grid">
+    <div class="section-head">
+      <div>
+        <h2>Pick your language, punch your ticket.</h2>
+        <p>Every pass includes mock tests, chapter tests and full eNotes.</p>
+      </div>
+      <div class="result-count"><span id="resultCount">12</span> language decks</div>
+    </div>
+    <div class="ticket-grid" id="ticketGrid"></div>
+  </div>
+
+  <div class="wrap quiz-section">
+    <div class="quiz-card">
+      <div class="quiz-grid">
+        <div class="quiz-left">
+          <div class="eyebrow"><span class="dot" style="background:#8FE3D6; box-shadow:0 0 0 3px rgba(143,227,214,.25)"></span> QUESTION OF THE DAY</div>
+          <h2>Warm up before the real thing.</h2>
+          <p>One quick IC38 question, refreshed daily. Tap an option to check yourself instantly — no login needed.</p>
+          <div class="quiz-progress" id="quizProgress"></div>
+        </div>
+        <div class="quiz-box">
+          <div class="q-tag" id="qTag">QUESTION 1 OF 3</div>
+          <div class="q-text" id="qText">—</div>
+          <div class="q-options" id="qOptions"></div>
+          <div class="q-explain" id="qExplain"></div>
+          <button class="q-next" id="qNext">Next question →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap cta-banner">
+    <div class="banner-inner">
+      <div>
+        <h3>Ready to become a licensed LIC agent?</h3>
+        <p>Join thousands of candidates practicing daily across 12 languages.</p>
+      </div>
+      <button class="btn btn-primary" style="padding:13px 26px; font-size:15px;" data-toast="Redirecting to signup…">Create Free Account →</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Built for aspirants, by aspirants. <b>IC38 Pass</b> is an independent prep resource — all buttons here are demo placeholders.</div>
+</footer>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+  // ---------------- data ----------------
+  const languages = [
+    {code:'HI', name:'Hindi',    native:'हिंदी',      mock:31, chapter:24, notes:24, grad:'linear-gradient(135deg,#F5B942,#C9862B)'},
+    {code:'EN', name:'English',  native:'English',    mock:46, chapter:19, notes:24, grad:'linear-gradient(135deg,#4C8DFB,#2559C9)'},
+    {code:'BN', name:'Bengali',  native:'বাংলা',       mock:34, chapter:24, notes:24, grad:'linear-gradient(135deg,#FC7C9C,#E14F76)'},
+    {code:'MR', name:'Marathi',  native:'मराठी',       mock:26, chapter:10, notes:24, grad:'linear-gradient(135deg,#14C9B5,#0C8E80)'},
+    {code:'GU', name:'Gujarati', native:'ગુજરાતી',    mock:23, chapter:18, notes:24, grad:'linear-gradient(135deg,#9B7BFB,#6E4FDB)'},
+    {code:'KN', name:'Kannada',  native:'ಕನ್ನಡ',      mock:8,  chapter:21, notes:24, grad:'linear-gradient(135deg,#2C4A8C,#12224E)'},
+    {code:'TE', name:'Telugu',   native:'తెలుగు',      mock:14, chapter:21, notes:24, grad:'linear-gradient(135deg,#F5B942,#C9862B)'},
+    {code:'PA', name:'Punjabi',  native:'ਪੰਜਾਬੀ',     mock:11, chapter:0,  notes:24, grad:'linear-gradient(135deg,#4C8DFB,#2559C9)'},
+    {code:'OR', name:'Odia',     native:'ଓଡ଼ିଆ',      mock:13, chapter:0,  notes:24, grad:'linear-gradient(135deg,#FC7C9C,#E14F76)'},
+    {code:'AS', name:'Assamese', native:'অসমীয়া',     mock:10, chapter:21, notes:24, grad:'linear-gradient(135deg,#14C9B5,#0C8E80)'},
+    {code:'ML', name:'Malayalam',native:'മലയാളം',     mock:26, chapter:24, notes:24, grad:'linear-gradient(135deg,#9B7BFB,#6E4FDB)'},
+    {code:'TA', name:'Tamil',    native:'தமிழ்',       mock:33, chapter:0,  notes:0,  grad:'linear-gradient(135deg,#2C4A8C,#12224E)'},
+  ];
+
+  const grid = document.getElementById('ticketGrid');
+  const chipRow = document.getElementById('chipRow');
+
+  languages.forEach((l,i)=>{
+    // ticket card
+    const el = document.createElement('div');
+    el.className = 'ticket';
+    el.dataset.name = (l.name + ' ' + l.native + ' ' + l.code).toLowerCase();
+    el.innerHTML = `
+      <div class="ticket-stub" style="background:${l.grad}">
+        <div class="stub-code">${l.code}</div>
+        <div class="stub-native">${l.native}</div>
+      </div>
+      <div class="ticket-body">
+        <span class="attempt-badge">✓ practiced</span>
+        <div class="ticket-title">${l.name}</div>
+        <div class="ticket-sub">IC38 · NEW SYLLABUS</div>
+        <div class="ticket-stats">
+          <div class="tstat"><span class="left"><span class="dot-ico">📝</span>Mock Tests</span><span class="val">${l.mock}</span></div>
+          <div class="tstat"><span class="left"><span class="dot-ico">📊</span>Chapter Tests</span><span class="val">${l.chapter}</span></div>
+          <div class="tstat"><span class="left"><span class="dot-ico">📘</span>eNotes</span><span class="val">${l.notes}</span></div>
+        </div>
+        <button class="ticket-cta">▶ Start Practice</button>
+      </div>
+    `;
+    grid.appendChild(el);
+
+    el.querySelector('.ticket-cta').addEventListener('click', ()=>{
+      showToast(`🎟️ Launching ${l.name} practice — coming soon!`);
+      const badge = el.querySelector('.attempt-badge');
+      badge.classList.add('show');
+      bumpStreak();
+    });
+
+    // chip
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = l.code;
+    chip.addEventListener('click', ()=>{
+      document.getElementById('searchInput').value = l.name;
+      filterCards();
+      document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      document.getElementById('grid').scrollIntoView({behavior:'smooth', block:'start'});
+    });
+    chipRow.appendChild(chip);
+  });
+
+  // ---------------- search/filter ----------------
+  const searchInput = document.getElementById('searchInput');
+  const resultCount = document.getElementById('resultCount');
+  function filterCards(){
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+    document.querySelectorAll('.ticket').forEach(t=>{
+      const match = t.dataset.name.includes(q);
+      t.classList.toggle('hidden', !match);
+      if(match) visible++;
+    });
+    resultCount.textContent = visible;
+    if(q === ''){ document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); }
+  }
+  searchInput.addEventListener('input', filterCards);
+  document.getElementById('exploreBtn').addEventListener('click', ()=>{
+    document.getElementById('grid').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  // ---------------- count-up stats ----------------
+  const countEls = document.querySelectorAll('[data-count]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        animateCount(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.5});
+  countEls.forEach(el=>io.observe(el));
+
+  function animateCount(el){
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const dur = 1100;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now-start)/dur, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ---------------- streak ----------------
+  let streak = 0;
+  let bumped = false;
+  function bumpStreak(){
+    if(bumped) return; // once per session, feels like "today's practice logged"
+    bumped = true;
+    streak = 1;
+    document.getElementById('streakVal').textContent = streak;
+    const pill = document.getElementById('streakPill');
+    pill.style.transform = 'scale(1.12)';
+    setTimeout(()=> pill.style.transform = 'scale(1)', 220);
+  }
+
+  // ---------------- toast ----------------
+  function showToast(msg){
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = `<span>👋</span> ${msg}`;
+    c.appendChild(t);
+    setTimeout(()=> t.remove(), 2600);
+  }
+  document.querySelectorAll('[data-toast]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.preventDefault();
+      showToast(btn.dataset.toast);
+    });
+  });
+
+  // ---------------- quiz widget ----------------
+  const questions = [
+    {
+      q:"Under IC38, what is the primary role of an LIC agent during policy solicitation?",
+      opts:["Fixing the policy premium","Explaining policy features honestly to the prospect","Underwriting the risk","Approving claim settlements"],
+      correct:1,
+      explain:"An agent's core duty is honest, accurate representation of the plan — underwriting, pricing and claims are handled by LIC, not the agent."
+    },
+    {
+      q:"A 'grace period' in a life insurance policy refers to:",
+      opts:["Time given to renew a lapsed license","Extra days allowed to pay a due premium without losing cover","The waiting period before a claim","The agent's commission cycle"],
+      correct:1,
+      explain:"The grace period lets the policyholder pay an overdue premium within a fixed window while the policy stays in force."
+    },
+    {
+      q:"Which document must an agent NEVER alter or misrepresent while selling a policy?",
+      opts:["Marketing brochure","Proposal form","Office memo","Business card"],
+      correct:1,
+      explain:"The proposal form is a legal declaration — any misstatement here can void the policy, so agents must fill it accurately with the client."
+    }
+  ];
+  let qi = 0;
+  const qTag = document.getElementById('qTag');
+  const qText = document.getElementById('qText');
+  const qOptions = document.getElementById('qOptions');
+  const qExplain = document.getElementById('qExplain');
+  const qNext = document.getElementById('qNext');
+  const qProgress = document.getElementById('quizProgress');
+
+  function renderProgress(){
+    qProgress.innerHTML = '';
+    questions.forEach((_,i)=>{
+      const s = document.createElement('span');
+      if(i === qi) s.classList.add('active');
+      qProgress.appendChild(s);
+    });
+  }
+
+  function renderQuestion(){
+    const item = questions[qi];
+    qTag.textContent = `QUESTION ${qi+1} OF ${questions.length}`;
+    qText.textContent = item.q;
+    qOptions.innerHTML = '';
+    qExplain.classList.remove('show');
+    qExplain.textContent = '';
+    qNext.classList.remove('show');
+    const letters = ['A','B','C','D'];
+    item.opts.forEach((opt, idx)=>{
+      const b = document.createElement('button');
+      b.className = 'q-opt';
+      b.innerHTML = `<span class="letter">${letters[idx]}</span> ${opt}`;
+      b.addEventListener('click', ()=>{
+        document.querySelectorAll('.q-opt').forEach(o=>o.setAttribute('disabled','true'));
+        if(idx === item.correct){
+          b.classList.add('correct');
+          showToast('✅ Correct! Well spotted.');
+        }else{
+          b.classList.add('wrong');
+          qOptions.children[item.correct].classList.add('correct');
+          showToast('❌ Not quite — check the explanation.');
+        }
+        qExplain.textContent = item.explain;
+        qExplain.classList.add('show');
+        qNext.classList.add('show');
+      });
+      qOptions.appendChild(b);
+    });
+    renderProgress();
+  }
+  qNext.addEventListener('click', ()=>{
+    qi = (qi+1) % questions.length;
+    renderQuestion();
+  });
+  renderQuestion();
+
+  // init
+  filterCards();
+</script>
+</body>
+</html>

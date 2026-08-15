@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>38Hub | IC-38 Exam Preparation</title>
+<meta name="description" content="Mock tests, chapter practice, live tests and e-notes for the IC-38 insurance agent licensing exam, in 12 languages.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   38HUB — design tokens
+   =========================================================== */
+:root{
+  --navy-900:#0c1c40;
+  --navy-800:#10224e;
+  --navy-700:#172d63;
+  --navy-600:#2a3f7c;
+  --ink:#1c2947;
+  --ink-soft:#5b6785;
+  --paper:#f4f5fb;
+  --paper-card:#ffffff;
+  --line:#e2e5f2;
+  --gold:#c9a227;
+  --gold-soft:#f4e6b8;
+  --green:#1f8a57;
+
+  --font-display:'Fraunces', Georgia, serif;
+  --font-body:'Public Sans', Arial, sans-serif;
+  --font-mono:'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius-lg:20px;
+  --radius-md:14px;
+  --radius-sm:8px;
+  --shadow-card:0 1px 2px rgba(16,34,78,.04), 0 8px 24px rgba(16,34,78,.06);
+  --shadow-lift:0 10px 30px rgba(16,34,78,.14);
+  --maxw:1180px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important}
+}
+
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+}
+
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-family:var(--font-display);color:var(--navy-800);line-height:1.1;margin:0}
+p{margin:0;color:var(--ink-soft);line-height:1.6}
+
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--navy-800); color:#fff;
+  padding:12px 18px; border-radius:0 0 8px 0; z-index:200;
+}
+.skip-link:focus{left:0}
+
+:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+
+/* ===========================================================
+   Buttons
+   =========================================================== */
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-body); font-weight:700; font-size:15px;
+  padding:13px 22px; border-radius:999px; border:1.5px solid transparent;
+  cursor:pointer; transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--navy-800); color:#fff; box-shadow:var(--shadow-card)}
+.btn-primary:hover{background:var(--navy-700); box-shadow:var(--shadow-lift)}
+.btn-outline{border-color:var(--navy-800); color:var(--navy-800); background:transparent}
+.btn-outline:hover{background:var(--navy-800); color:#fff}
+.btn-ghost{color:var(--navy-800); padding:10px 16px}
+.btn-ghost:hover{background:var(--line)}
+.btn-lg{padding:16px 30px; font-size:16px}
+
+/* ===========================================================
+   Top bar
+   =========================================================== */
+.topbar{
+  position:sticky; top:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 32px; background:rgba(244,245,251,.86); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex; align-items:baseline; gap:2px; font-family:var(--font-display); font-weight:700; font-size:22px; color:var(--navy-800)}
+.brand-word{color:var(--gold)}
+#siteNav{display:flex; gap:28px}
+#siteNav a{font-weight:600; font-size:14.5px; color:var(--ink); padding:6px 2px; position:relative}
+#siteNav a::after{
+  content:""; position:absolute; left:0; right:0; bottom:-4px; height:2px; background:var(--gold);
+  transform:scaleX(0); transform-origin:left; transition:transform .2s ease;
+}
+#siteNav a:hover::after{transform:scaleX(1)}
+.topbar-actions{display:flex; align-items:center; gap:6px}
+
+.nav-toggle{display:none; flex-direction:column; justify-content:center; gap:5px; width:38px; height:38px; border:1px solid var(--line); background:#fff; border-radius:8px; cursor:pointer}
+.nav-toggle span{display:block; height:2px; background:var(--navy-800); border-radius:2px}
+
+@media (max-width: 900px){
+  #siteNav{
+    position:fixed; inset:64px 0 auto 0; flex-direction:column; gap:0;
+    background:#fff; border-bottom:1px solid var(--line);
+    transform:translateY(-12px); opacity:0; pointer-events:none; transition:all .2s ease;
+  }
+  #siteNav.open{transform:translateY(0); opacity:1; pointer-events:auto}
+  #siteNav a{padding:16px 24px; border-bottom:1px solid var(--line)}
+  .nav-toggle{display:flex}
+}
+
+/* ===========================================================
+   Hero + Hall Ticket signature element
+   =========================================================== */
+.hero{padding:64px 32px 40px}
+.hero-inner{
+  max-width:var(--maxw); margin:0 auto;
+  display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;
+}
+.eyebrow{
+  display:inline-block; font-family:var(--font-mono); font-size:12px; letter-spacing:.08em;
+  color:var(--navy-600); font-weight:600; margin-bottom:18px;
+}
+.eyebrow-dark{color:var(--gold); background:var(--navy-800); padding:6px 12px; border-radius:999px}
+
+.hero-copy h1{font-size:clamp(36px,4.6vw,58px); font-weight:600; letter-spacing:-.01em}
+.hero-copy h1 em{font-style:normal; color:var(--gold)}
+.hero-sub{margin-top:20px; font-size:18px; max-width:46ch}
+.hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-top:30px}
+.hero-note{margin-top:18px; font-size:13.5px; color:var(--ink-soft)}
+
+/* the hall ticket */
+.hero-visual{display:flex; justify-content:center; perspective:1200px}
+.ticket{
+  position:relative; width:min(400px, 100%);
+  background:var(--paper-card); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lift);
+  transform:rotate(3deg);
+  transition:transform .4s ease;
+}
+@media (hover:hover){
+  .ticket:hover{transform:rotate(0deg) translateY(-4px)}
+}
+.ticket-holes{
+  position:absolute; left:-8px; top:0; bottom:0; width:16px;
+  display:flex; flex-direction:column; justify-content:space-evenly; align-items:center;
+}
+.ticket-holes span{width:14px; height:14px; border-radius:50%; background:var(--paper)}
+.ticket-body{padding:28px 26px 22px 34px}
+.ticket-head{display:flex; align-items:center; justify-content:space-between; padding-bottom:16px; border-bottom:1.5px dashed var(--line); margin-bottom:16px}
+.ticket-logo{font-family:var(--font-display); font-weight:700; font-size:20px; color:var(--navy-800)}
+.ticket-logo b{color:var(--gold)}
+.ticket-tag{font-family:var(--font-mono); font-size:10.5px; letter-spacing:.1em; color:var(--ink-soft); border:1px solid var(--line); padding:4px 8px; border-radius:6px}
+.ticket-row{margin-bottom:14px; display:flex; flex-direction:column; gap:3px}
+.ticket-row.two-col{flex-direction:row; gap:20px}
+.ticket-row.two-col > div{flex:1; display:flex; flex-direction:column; gap:3px}
+.ticket-label{font-family:var(--font-mono); font-size:10.5px; letter-spacing:.08em; color:var(--ink-soft); text-transform:uppercase}
+.ticket-value{font-weight:600; color:var(--navy-800); font-size:15px}
+.ticket-mono{font-family:var(--font-mono); letter-spacing:.03em; font-size:14px}
+.ticket-barcode{display:flex; gap:3px; align-items:flex-end; height:28px; margin-top:6px}
+.ticket-barcode span{flex:1; background:var(--navy-800); opacity:.75}
+.ticket-barcode span:nth-child(3n){height:70%}
+.ticket-barcode span:nth-child(4n){height:45%}
+.ticket-barcode span:nth-child(5n){height:100%}
+
+.ticket-stamp{
+  position:absolute; right:-10px; bottom:26px; width:96px; height:96px;
+  border-radius:50%; border:3px solid var(--green); color:var(--green);
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:var(--font-mono); font-weight:700; font-size:11.5px; letter-spacing:.06em;
+  background:rgba(255,255,255,.9);
+  transform:rotate(-14deg) scale(0); opacity:0;
+  animation:stamp-in .5s cubic-bezier(.2,1.4,.4,1) .5s forwards;
+}
+.ticket-stamp span{border:1.5px solid var(--green); border-radius:50%; width:78px; height:78px; display:flex; align-items:center; justify-content:center; padding:6px}
+@keyframes stamp-in{
+  0%{transform:rotate(-14deg) scale(0); opacity:0}
+  60%{transform:rotate(-14deg) scale(1.12); opacity:1}
+  100%{transform:rotate(-14deg) scale(1); opacity:1}
+}
+@media (prefers-reduced-motion: reduce){
+  .ticket-stamp{animation:none; transform:rotate(-14deg) scale(1); opacity:1}
+}
+
+@media (max-width:900px){
+  .hero-inner{grid-template-columns:1fr; gap:44px}
+  .hero-visual{order:-1}
+  .ticket{transform:rotate(0)}
+}
+
+/* ===========================================================
+   Stats bar
+   =========================================================== */
+.stats-bar{background:var(--navy-800); padding:38px 32px}
+.stats-inner{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:20px; text-align:center}
+.stat b{display:block; font-family:var(--font-mono); font-size:clamp(26px,3vw,34px); color:var(--gold); font-weight:600}
+.stat span{color:#c3cae0; font-size:13.5px}
+.stats-disclaimer{max-width:var(--maxw); margin:14px auto 0; text-align:center; color:#7c88ab; font-size:11.5px}
+@media (max-width:700px){.stats-inner{grid-template-columns:repeat(2,1fr)}}
+
+/* ===========================================================
+   Sections / features
+   =========================================================== */
+.section{max-width:var(--maxw); margin:0 auto; padding:88px 32px}
+.section-head{text-align:center; max-width:620px; margin:0 auto 44px}
+.section-head h2{font-size:clamp(28px,3.4vw,40px); font-weight:600; margin-top:14px}
+.section-head .sub{margin-top:12px; font-size:16px}
+
+.feature-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.feature-card{
+  background:var(--paper-card); border:1px solid var(--line); border-radius:var(--radius-md);
+  padding:28px; box-shadow:var(--shadow-card);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.feature-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-lift); border-color:var(--gold)}
+.feature-icon{font-size:26px}
+.feature-card h3{font-size:19px; margin-top:14px; margin-bottom:8px}
+.feature-card p{font-size:14.5px}
+
+@media (max-width:900px){.feature-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.feature-grid{grid-template-columns:1fr}}
+
+/* ===========================================================
+   How it works
+   =========================================================== */
+.how{background:var(--paper)}
+.steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:28px; counter-reset:step}
+.steps li{background:var(--paper-card); border:1px solid var(--line); border-radius:var(--radius-md); padding:30px; position:relative}
+.step-no{font-family:var(--font-mono); color:var(--gold); font-weight:700; font-size:13px; letter-spacing:.08em}
+.steps h3{font-size:19px; margin-top:12px; margin-bottom:8px}
+.steps p{font-size:14.5px}
+@media (max-width:900px){.steps{grid-template-columns:1fr}}
+
+/* ===========================================================
+   CTA
+   =========================================================== */
+.cta{background:linear-gradient(120deg, var(--navy-900), var(--navy-700)); padding:80px 32px; text-align:center}
+.cta-inner{max-width:640px; margin:0 auto}
+.cta h2{color:#fff; font-size:clamp(26px,3.4vw,36px); font-weight:600; margin-bottom:28px}
+
+/* ===========================================================
+   Footer
+   =========================================================== */
+footer{background:var(--navy-900); color:#c3cae0; padding:56px 32px 24px}
+.footer-grid{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:32px}
+.footer-brand{font-family:var(--font-display); font-size:20px; font-weight:700; color:#fff}
+.footer-brand p{color:#8993b3; font-size:13.5px; margin-top:8px; font-family:var(--font-body)}
+.footer-grid > div b{display:block; color:#fff; font-size:14px; margin-bottom:14px}
+.footer-grid > div a, .footer-grid > div span{display:block; font-size:14px; margin-bottom:10px; color:#aab2cf}
+.footer-grid > div a:hover{color:var(--gold)}
+.footer-bottom{max-width:var(--maxw); margin:40px auto 0; padding-top:20px; border-top:1px solid #26305a; font-size:12.5px; color:#7c88ab}
+@media (max-width:800px){.footer-grid{grid-template-columns:1fr 1fr; row-gap:32px}}
+
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#home">
+    <span class="brand-mark">38</span>
+    <span class="brand-word">HUB</span>
+  </a>
+
+  <nav id="siteNav">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#features">Explore</a>
+    <a href="#how">How it works</a>
+    <a href="#agentmitra">Agent Mitra</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <div class="topbar-actions">
+    <a class="btn btn-ghost" href="#login">Login</a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===== HERO ===== -->
+<section id="home" class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">IC-38 LICENSING EXAM · PREPARATION PLATFORM</span>
+      <h1>Walk into IC-38<br>already knowing<br>you'll <em>pass</em>.</h1>
+      <p class="hero-sub">Mock tests, chapter-wise practice, live tests and e-notes — everything an IC-38 aspirant needs, in your own language.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#mock">Start a mock test →</a>
+        <a class="btn btn-outline" href="#how">See how it works</a>
+      </div>
+      <p class="hero-note"><!-- TODO: replace with a verified figure before launch -->Built for agents preparing across 12 Indian languages.</p>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="ticket" id="ticket">
+        <div class="ticket-holes">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="ticket-body">
+          <div class="ticket-head">
+            <span class="ticket-logo">38<b>HUB</b></span>
+            <span class="ticket-tag">ADMIT CARD</span>
+          </div>
+          <div class="ticket-row">
+            <span class="ticket-label">Exam</span>
+            <span class="ticket-value">IC-38 · Insurance Agent Licensing</span>
+          </div>
+          <div class="ticket-row two-col">
+            <div>
+              <span class="ticket-label">Language</span>
+              <span class="ticket-value">Choose from 12</span>
+            </div>
+            <div>
+              <span class="ticket-label">Attempt</span>
+              <span class="ticket-value">Unlimited practice</span>
+            </div>
+          </div>
+          <div class="ticket-row">
+            <span class="ticket-label">Roll No.</span>
+            <span class="ticket-value ticket-mono">38HUB / 2026 / 000000</span>
+          </div>
+          <div class="ticket-barcode" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <div class="ticket-stamp" id="ticketStamp">
+          <span>VERIFIED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><b class="count" data-count="25000" data-suffix="+">0</b><span>Mock tests taken</span></div>
+    <div class="stat"><b class="count" data-count="15000" data-suffix="+">0</b><span>Learners on 38Hub</span></div>
+    <div class="stat"><b class="count" data-count="98" data-suffix="%">0</b><span>Aspirant satisfaction</span></div>
+    <div class="stat"><b class="count" data-count="12" data-suffix="">0</b><span>Languages supported</span></div>
+  </div>
+  <p class="stats-disclaimer"><!-- TODO: swap in your real, verified numbers before this goes live --></p>
+</section>
+
+<!-- ===== ABOUT / FEATURES ===== -->
+<section id="about" class="section">
+  <div class="section-head">
+    <span class="eyebrow eyebrow-dark">EXPLORE 38HUB</span>
+    <h2>Everything you need, in one place</h2>
+    <p class="sub">Pick a card below — each one opens its own space in the platform.</p>
+  </div>
+
+  <div class="feature-grid" id="features">
+    <a class="feature-card" href="#mock">
+      <span class="feature-icon">📝</span>
+      <h3>Mock Test</h3>
+      <p>Full-length tests in 12 languages, timed like the real exam.</p>
+    </a>
+    <a class="feature-card" href="#practice">
+      <span class="feature-icon">📚</span>
+      <h3>Practice Tests</h3>
+      <p>Chapter-wise questions on basics, regulations, products and ethics.</p>
+    </a>
+    <a class="feature-card" href="#live">
+      <span class="feature-icon">🟢</span>
+      <h3>Live Test</h3>
+      <p>Sit a scheduled test in real time and see where you stand.</p>
+    </a>
+    <a class="feature-card" href="#notes">
+      <span class="feature-icon">📄</span>
+      <h3>E-Notes</h3>
+      <p>Short, exam-focused notes for every unit of the syllabus.</p>
+    </a>
+    <a class="feature-card" href="#video">
+      <span class="feature-icon">▶</span>
+      <h3>Video Tutorials</h3>
+      <p>Step-by-step video walkthroughs of the trickier chapters.</p>
+    </a>
+    <a class="feature-card" href="#agentmitra">
+      <span class="feature-icon">🤝</span>
+      <h3>Agent Mitra</h3>
+      <p>Tools for licensed agents to manage customers and grow their book.</p>
+    </a>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="how" class="section how">
+  <div class="section-head">
+    <span class="eyebrow eyebrow-dark">THE PATH TO IC-38</span>
+    <h2>Three steps, start to exam day</h2>
+  </div>
+
+  <ol class="steps">
+    <li>
+      <span class="step-no">01</span>
+      <h3>Pick your language</h3>
+      <p>Every mock and practice test is available in 12 Indian languages — study in the one you think in.</p>
+    </li>
+    <li>
+      <span class="step-no">02</span>
+      <h3>Practice by chapter</h3>
+      <p>Work through insurance basics, IRDAI regulations, life and general insurance at your own pace.</p>
+    </li>
+    <li>
+      <span class="step-no">03</span>
+      <h3>Sit a live test</h3>
+      <p>Test under real exam conditions, track your score, and know you're ready before the actual date.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta">
+  <div class="cta-inner">
+    <h2>Your IC-38 exam date is set.<br>Is your preparation?</h2>
+    <a class="btn btn-primary btn-lg" href="#mock">Start preparing, free →</a>
+  </div>
+</section>
+
+</main>
+
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="brand-mark">38</span><span class="brand-word">HUB</span>
+      <p>Your success, our mission.</p>
+    </div>
+    <div>
+      <b>Quick links</b>
+      <a href="#home">Home</a>
+      <a href="#mock">Mock Test</a>
+      <a href="#practice">Practice</a>
+      <a href="#live">Live Test</a>
+    </div>
+    <div>
+      <b>Resources</b>
+      <a href="#notes">E-Notes</a>
+      <a href="#video">Video Tutorials</a>
+      <a href="#agentmitra">Agent Mitra</a>
+    </div>
+    <div>
+      <b>Contact</b>
+      <span>support@38hub.com</span>
+      <span>Hyderabad, India</span>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 38Hub. All rights reserved.</div>
+</footer>
+
+<script>
+// ---------- Mobile nav toggle ----------
+const navToggle = document.getElementById('navToggle');
+const siteNav = document.getElementById('siteNav');
+
+navToggle.addEventListener('click', () => {
+  const open = siteNav.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+
+siteNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    siteNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  });
+});
+
+// ---------- Count-up stats, triggered when scrolled into view ----------
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function animateCount(el) {
+  const target = parseInt(el.dataset.count, 10);
+  const suffix = el.dataset.suffix || '';
+
+  if (prefersReducedMotion) {
+    el.textContent = target.toLocaleString('en-IN') + suffix;
+    return;
+  }
+
+  const duration = 1200;
+  const start = performance.now();
+
+  function tick(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    const value = Math.round(target * eased);
+    el.textContent = value.toLocaleString('en-IN') + suffix;
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCount(entry.target);
+      statObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.count').forEach(el => statObserver.observe(el));
+
+// ---------- Subtle ticket tilt on pointer move (desktop, motion allowed) ----------
+const ticket = document.getElementById('ticket');
+if (ticket && window.matchMedia('(hover: hover)').matches && !prefersReducedMotion) {
+  const heroVisual = ticket.closest('.hero-visual');
+  heroVisual.addEventListener('mousemove', (e) => {
+    const rect = heroVisual.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    ticket.style.transform = `rotate(${3 - x * 6}deg) translateY(${y * -6}px)`;
+  });
+  heroVisual.addEventListener('mouseleave', () => {
+    ticket.style.transform = '';
+  });
+}
+
+</script>
+</body>
+</html>
