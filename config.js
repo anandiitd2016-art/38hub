@@ -8,4 +8,4 @@
 // ============================================================
 
 export const SUPABASE_URL = 'https://jmeyxdkpqyzcgecbbgzq.supabase.co';
-export const SUPABASE_ANON_KEY = 'sb_publishable_FeMCC8c5E4nG4i2cFXRJzg_ooDuR...'; // your full key from before
+export const SUPABASE_ANON_KEY = 'sb_publishable_FeMCC8c5E4nG4i2cFXRJzg_ooDuRZdD'; // your full key from before
